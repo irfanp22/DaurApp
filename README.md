@@ -1,16 +1,12 @@
-# daur_app
+# DaurApp
 
-A new Flutter project.
+DaurApp adalah aplikasi bank sampah yang menerima sampah daur ulang menjadi DaurPoin.
+DaurPoin ini bisa ditukarkan menjadi uang yang keuntungannya semakin besar berdasarkan loyalitas pengguna.
 
-## Getting Started
+## Project
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Aplikasi ini merupakan project mata kuliah Pemrograman Mobile dengan anggota:
+1. Anisa Meilia (H1D021003)
+2. Nurul Afifah (H1D021042)
+3. Irfan Priatna (H1D021043)
+4. Fachrubi Annafi (H1D021079)
