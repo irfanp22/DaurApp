@@ -1,7 +1,7 @@
 import 'package:daur_app/interface/screen/auth/register_form.dart';
 import 'package:daur_app/interface/utils/app_color.dart';
 import 'package:daur_app/interface/utils/auth_utils.dart';
-import 'package:daur_app/interface/widget/input_text_form_field.dart';
+import 'package:daur_app/interface/widget/input_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 

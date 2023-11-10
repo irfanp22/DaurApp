@@ -13,7 +13,7 @@ class AppColor {
     800: const Color.fromRGBO(4, 131, 184, .9),
     900: const Color.fromRGBO(4, 131, 184, 1),
   };
-  static const Color primaryColor = Color(0xFF3FACAD);
+  static const Color primaryColor = Color(0xFF53E88B);
   static const Color headTextColor = Color(0xFF01522C);
   static const Color textColor = Color(0xFF35364F);
   static const Color backgroundColor = Color(0xFFE6EFF9);

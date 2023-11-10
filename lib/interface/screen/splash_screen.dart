@@ -68,21 +68,15 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           const Spacer(),
           const CircularProgressIndicator(),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: AppColor.defaultPadding),
           const Text(
             "DaurApp: Recycle, Earn, Renew",
             style: TextStyle(
                 color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 13),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: AppColor.defaultPadding),
           Text("Version $appVersion"),
-          const SizedBox(
-            height: 10,
-          )
+          const SizedBox(height: AppColor.defaultPadding * 5),
         ],
       ),
     );
