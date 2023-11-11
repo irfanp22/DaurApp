@@ -1,4 +1,4 @@
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -26,7 +26,7 @@ class RegisterForm extends StatelessWidget {
             validator: RequiredValidator(errorText: "Username is required"),
             onSaved: (username) => _userName = username!,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const TextFieldName(text: "Email"),
           TextFormField(
             keyboardType: TextInputType.emailAddress,
@@ -34,7 +34,7 @@ class RegisterForm extends StatelessWidget {
             validator: EmailValidator(errorText: "Use a valid email!"),
             onSaved: (email) => _email = email!,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const TextFieldName(text: "Phone"),
           // Same for phone number
           TextFormField(
@@ -43,7 +43,7 @@ class RegisterForm extends StatelessWidget {
             validator: RequiredValidator(errorText: "Phone number is required"),
             onSaved: (phoneNumber) => _phoneNumber = phoneNumber!,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const TextFieldName(text: "Password"),
 
           TextFormField(
@@ -53,7 +53,7 @@ class RegisterForm extends StatelessWidget {
             onSaved: (password) => _password = password!,
             onChanged: (pass) => _password = pass,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const TextFieldName(text: "Confirm Password"),
           TextFormField(
             obscureText: true,
@@ -79,7 +79,7 @@ class TextFieldName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppColor.defaultPadding / 3),
+      padding: const EdgeInsets.only(bottom: AppStyle.defaultPadding / 3),
       child: Text(
         text,
         style:

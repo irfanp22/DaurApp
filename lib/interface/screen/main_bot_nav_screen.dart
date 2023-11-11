@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:daur_app/interface/stateholders/main_bot_nav_controller.dart';
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
@@ -23,6 +23,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     const HistoryScreen(),
     const AccountScreen()
   ];
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {});
@@ -37,22 +38,29 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: controller.currentSelectedIndex,
           unselectedItemColor: Colors.grey,
-          selectedItemColor: AppColor.primaryColor,
+          selectedItemColor: AppStyle.primaryColor,
           showSelectedLabels: true,
           type: BottomNavigationBarType.shifting,
           elevation: 4,
           onTap: controller.onChanged,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home),
-                label: "Home",
-                tooltip: "Home"),
+              icon: Icon(CupertinoIcons.home),
+              label: "Home",
+              tooltip: "Home",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.trash), label: "Trash"),
+              icon: Icon(CupertinoIcons.trash),
+              label: "Trash",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.doc_text), label: "History"),
+              icon: Icon(CupertinoIcons.doc_text),
+              label: "History",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person), label: "Account"),
+              icon: Icon(CupertinoIcons.person),
+              label: "Account",
+            ),
           ],
         ),
       );

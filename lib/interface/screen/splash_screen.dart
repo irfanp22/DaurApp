@@ -1,6 +1,6 @@
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
 import 'package:daur_app/interface/screen/main_bot_nav_screen.dart';
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,8 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _goToNextScreen() async {
     Future.delayed(const Duration(seconds: 3)).then(
-      (value) => false
-          ? Get.offAll(const BottomNavBarScreen())
+      (value) => true
+          ? Get.offAll(() => const BottomNavBarScreen())
           : Get.to(() => LoginScreen()),
     );
   }
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 const Text(
                   "DaurApp",
                   style: TextStyle(
-                    color: AppColor.headTextColor,
+                    color: AppStyle.headTextColor,
                     fontWeight: FontWeight.w800,
                     fontSize: 40,
                   ),
@@ -68,15 +68,15 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           const Spacer(),
           const CircularProgressIndicator(),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const Text(
             "DaurApp: Recycle, Earn, Renew",
             style: TextStyle(
                 color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 13),
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           Text("Version $appVersion"),
-          const SizedBox(height: AppColor.defaultPadding * 5),
+          const SizedBox(height: AppStyle.defaultPadding * 5),
         ],
       ),
     );

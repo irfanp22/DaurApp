@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:daur_app/app/state_holders.dart';
 import 'package:daur_app/interface/screen/splash_screen.dart';
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,18 +43,18 @@ class _DaurAppState extends State<DaurApp> {
       home: const SplashScreen(),
       theme: ThemeData(
         primarySwatch:
-            MaterialColor(AppColor.primaryColor.value, AppColor().color),
+            MaterialColor(AppStyle.primaryColor.value, AppStyle().color),
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
           ),
           disabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColor.primaryColor),
+              borderSide: const BorderSide(color: AppStyle.primaryColor),
               borderRadius: BorderRadius.circular(8)),
           focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.primaryColor)),
+              borderSide: BorderSide(color: AppStyle.primaryColor)),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.primaryColor),
+            borderSide: BorderSide(color: AppStyle.primaryColor),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

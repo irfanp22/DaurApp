@@ -1,7 +1,8 @@
 import 'package:daur_app/interface/screen/auth/register_form.dart';
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
+import 'package:daur_app/interface/widget/white_space_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -21,8 +22,8 @@ class RegisterScreen extends StatelessWidget {
             alignment: const Alignment(0.0, 0.0),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppColor.defaultPadding,
-                vertical: AppColor.defaultPadding * 4,
+                horizontal: AppStyle.defaultPadding,
+                vertical: AppStyle.defaultPadding * 4,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontWeight: FontWeight.bold, color: Colors.black),
                   ),
-                  const SizedBox(height: AppColor.defaultPadding),
+                  const SizedBox(height: AppStyle.defaultPadding),
                   Row(
                     children: [
                       const Text(
@@ -60,33 +61,25 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.75,
-              color: AppColor.backgroundColor,
-            ),
-          ),
+          const WhiteSpaceWidget(),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.2,
-            left: AppColor.defaultPadding,
-            right: AppColor.defaultPadding,
+            left: AppStyle.defaultPadding,
+            right: AppStyle.defaultPadding,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Container(
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppColor.defaultPadding),
+                      horizontal: AppStyle.defaultPadding),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: AppColor.defaultPadding * 2),
+                        const SizedBox(height: AppStyle.defaultPadding * 2),
                         RegisterForm(formKey: _formKey),
-                        const SizedBox(height: AppColor.defaultPadding),
+                        const SizedBox(height: AppStyle.defaultPadding),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -102,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                             child: const Text("Register"),
                           ),
                         ),
-                        const SizedBox(height: AppColor.defaultPadding * 2),
+                        const SizedBox(height: AppStyle.defaultPadding * 2),
                       ],
                     ),
                   ),

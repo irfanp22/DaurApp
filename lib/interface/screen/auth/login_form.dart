@@ -1,5 +1,5 @@
 import 'package:daur_app/interface/screen/auth/register_form.dart';
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/auth_utils.dart';
 import 'package:daur_app/interface/widget/input_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class LoginForm extends StatelessWidget {
             validator: EmailValidator(errorText: "Use a valid email!"),
             onSaved: (email) => _email = email!,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
           const TextFieldName(text: "Password"),
           InputTextFormField(
             isSecureField: true,
@@ -37,7 +37,7 @@ class LoginForm extends StatelessWidget {
             validation: AuthUtils.passwordValidator,
             onFieldSubmitted: (password) => _password = password!,
           ),
-          const SizedBox(height: AppColor.defaultPadding),
+          const SizedBox(height: AppStyle.defaultPadding),
         ],
       ),
     );

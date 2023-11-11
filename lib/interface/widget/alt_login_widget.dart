@@ -1,4 +1,4 @@
-import 'package:daur_app/interface/utils/app_color.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,7 +15,7 @@ class AltLoginWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
-            side: const BorderSide(color: AppColor.primaryColor, width: 2),
+            side: const BorderSide(color: AppStyle.primaryColor, width: 2),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
@@ -32,7 +32,7 @@ class AltLoginWidget extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: AppColor.defaultPadding * 2),
+        const SizedBox(height: AppStyle.defaultPadding * 2),
         TextButton(
           onPressed: () {
             // TODO: Implement continue as guest logic
