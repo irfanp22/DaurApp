@@ -10,10 +10,10 @@ import 'package:daur_app/interface/stateholders/main_bot_nav_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
-  const BottomNavBarScreen({super.key});
+  const BottomNavBarScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomNavBarScreen> createState() => _BottomNavBarScreenState();
+  _BottomNavBarScreenState createState() => _BottomNavBarScreenState();
 }
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {

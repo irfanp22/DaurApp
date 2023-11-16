@@ -6,14 +6,9 @@ class WhiteSpaceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: MediaQuery.of(context).size.height * 0.25,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.75,
-        color: AppStyle.backgroundColor,
-      ),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.75,
+      color: AppStyle.backgroundColor,
     );
   }
 }

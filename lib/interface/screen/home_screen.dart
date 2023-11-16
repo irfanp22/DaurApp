@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Stack(
           fit: StackFit.expand,
           children: [
+            const WhiteSpaceWidget(),
             GreenPatternBackground(),
             Align(
               alignment: const Alignment(0.0, 0.0),
@@ -67,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const WhiteSpaceWidget(),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2,
               left: AppStyle.defaultPadding,
@@ -346,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(
                               width: 8,
-                            ), // Add some space between icon and text
+                            ),
                             Expanded(
                               child: Center(
                                 child: Text(
@@ -364,9 +364,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(
                           height: 8,
-                        ), // Add some space between title and news item
+                        ),
                         Container(
-                          width: 200, // Provide a finite width here
+                          width: 200,
                           child: NewsListItem(
                             newsItem: NewsItem(
                               title: "Breaking News",
@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 8,
                         ),
                         Container(
-                          width: 200, // Provide a finite width here
+                          width: 200,
                           child: NewsListItem(
                             newsItem: NewsItem(
                               title: "Breaking News",
