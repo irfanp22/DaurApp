@@ -182,8 +182,7 @@ class _TrashScreenState extends State<TrashScreen> {
                 ),
               ),
             ),
-            if (items
-                .isNotEmpty) // Show the summary widget when items are not empty
+            if (items.isNotEmpty)
               Positioned(
                 bottom: 0,
                 left: 0,

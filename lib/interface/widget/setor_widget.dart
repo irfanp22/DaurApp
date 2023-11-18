@@ -1,4 +1,5 @@
 import 'package:daur_app/interface/screen/trash_screen.dart';
+import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class SummaryWidget extends StatelessWidget {
@@ -29,13 +30,15 @@ class SummaryWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Total Sampah',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: AppStyle.primaryColor),
               ),
               Text(
                 '$itemCount items',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: AppStyle.primaryColor),
               ),
             ],
           ),
@@ -68,7 +71,10 @@ class SummaryWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Setorkan'),
+                  Text(
+                    'Setorkan',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),

@@ -20,6 +20,7 @@ class AppStyle {
   static const Color textColor = Colors.white;
   static const Color backgroundColor = Color(0xFFE6EFF9);
   static const Color redColor = Color(0xFFE85050);
+  static const Color redSecondary = Color.fromARGB(255, 213, 125, 125);
 
   static const defaultPadding = 16.0;
   static OutlineInputBorder textFieldBorder = OutlineInputBorder(

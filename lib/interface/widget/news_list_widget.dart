@@ -1,4 +1,5 @@
 import 'package:daur_app/data/model/news_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewsListItem extends StatelessWidget {
@@ -9,7 +10,7 @@ class NewsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.calendar_today), // Date icon on the left
+      leading: const Icon(CupertinoIcons.calendar), // Date icon on the left
       title: Text(newsItem.title),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
