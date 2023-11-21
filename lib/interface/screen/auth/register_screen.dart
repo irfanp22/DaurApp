@@ -17,6 +17,7 @@ class RegisterScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          const WhiteSpaceWidget(),
           GreenPatternBackground(),
           Align(
             alignment: const Alignment(0.0, 0.0),
@@ -31,14 +32,14 @@ class RegisterScreen extends StatelessWidget {
                   Text(
                     "Register",
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                        fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   const SizedBox(height: AppStyle.defaultPadding),
                   Row(
                     children: [
                       const Text(
                         "Already have an account?",
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                       TextButton(
                         onPressed: () => Navigator.push(
@@ -48,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                         style: TextButton.styleFrom(
-                          foregroundColor: Colors.black,
+                          foregroundColor: Colors.white,
                         ),
                         child: const Text(
                           "Login here!",
@@ -61,7 +62,6 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
           ),
-          const WhiteSpaceWidget(),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.2,
             left: AppStyle.defaultPadding,
@@ -92,7 +92,8 @@ class RegisterScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50)),
                             ),
-                            child: const Text("Register"),
+                            child: const Text("Register",
+                                style: TextStyle(color: Colors.white)),
                           ),
                         ),
                         const SizedBox(height: AppStyle.defaultPadding * 2),

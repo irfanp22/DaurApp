@@ -27,21 +27,12 @@ class AltLoginWidget extends StatelessWidget {
               const SizedBox(width: 4),
               const Text(
                 'Login with Google',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12, color: AppStyle.headTextColor),
               ),
             ],
           ),
         ),
         const SizedBox(height: AppStyle.defaultPadding * 2),
-        TextButton(
-          onPressed: () {
-            // TODO: Implement continue as guest logic
-          },
-          child: const Text(
-            'Continue as Guest',
-            style: TextStyle(fontSize: 14),
-          ),
-        ),
       ],
     );
   }

@@ -1,7 +1,6 @@
-import 'package:daur_app/data/model/news_model.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
-import 'package:daur_app/interface/widget/news_list_widget.dart';
+import 'package:daur_app/interface/widget/spacer_widget.dart';
 import 'package:daur_app/interface/widget/white_space_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -156,13 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )
                               ]),
-                              const SizedBox(height: AppStyle.defaultPadding),
-                              Container(
-                                height: 1,
-                                width: double.infinity,
-                                color: AppStyle.textColor,
-                              ),
-                              const SizedBox(height: AppStyle.defaultPadding),
+                              SpacerWidget(login: false, color: Colors.white),
                               Row(
                                 children: [
                                   Expanded(
@@ -262,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CupertinoIcons.car_fill, "Pick Up", () {}),
                             AppStyle.buildMenuItem(
                                 CupertinoIcons.rectangle_grid_2x2_fill,
-                                "More",
+                                "DaurHero",
                                 () {}),
                           ],
                         ),
@@ -318,80 +311,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: AppStyle.primaryColor,
                       ),
                     ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.7 + 10,
-              left: AppStyle.defaultPadding,
-              right: AppStyle.defaultPadding,
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppStyle.defaultPadding,
-                      vertical: AppStyle.defaultPadding,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              CupertinoIcons.news_solid,
-                              size: 40,
-                              color: AppStyle.primaryColor,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  "DaurNews",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppStyle.headTextColor),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          width: 200,
-                          child: NewsListItem(
-                            newsItem: NewsItem(
-                              title: "Breaking News",
-                              date: DateTime.now(),
-                              preview:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          width: 200,
-                          child: NewsListItem(
-                            newsItem: NewsItem(
-                              title: "Breaking News",
-                              date: DateTime.now(),
-                              preview:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),
