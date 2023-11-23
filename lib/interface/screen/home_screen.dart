@@ -254,9 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             AppStyle.buildMenuItem(
                                 CupertinoIcons.car_fill, "Pick Up", () {}),
                             AppStyle.buildMenuItem(
-                                CupertinoIcons.rectangle_grid_2x2_fill,
-                                "DaurHero",
-                                () {}),
+                                CupertinoIcons.qrcode, "Input Poin", () {}),
                           ],
                         ),
                       ],
@@ -286,21 +284,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(
-                        CupertinoIcons.gift_fill,
+                        CupertinoIcons.star_circle_fill,
                         size: 40,
                         color: AppStyle.primaryColor,
                       ),
                       Expanded(
                         child: Column(
                           children: [
-                            Text("90 xp lagi menuju Pelopor Lingkungan",
+                            Text("450 xp lagi menuju Recycling Pro",
                                 style:
                                     TextStyle(color: AppStyle.headTextColor)),
                             SizedBox(
                               height: 8,
                             ),
                             LinearProgressIndicator(
-                              value: 110 / 200,
+                              value: 1050 / 1500,
                             ),
                           ],
                         ),

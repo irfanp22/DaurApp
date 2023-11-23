@@ -1,3 +1,4 @@
+import 'package:daur_app/data/model/auth_helper.dart';
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
 import 'package:daur_app/interface/screen/main_bot_nav_screen.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
@@ -26,9 +27,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _goToNextScreen() async {
     Future.delayed(const Duration(seconds: 3)).then(
-      (value) => true
+      (value) => auth.currentUser != null
           ? Get.offAll(() => const BottomNavBarScreen())
-          : Get.to(() => LoginScreen()),
+          : Get.to(() => const LoginScreen()),
     );
   }
 

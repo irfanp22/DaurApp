@@ -34,9 +34,9 @@ class _DaurAppState extends State<DaurApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       navigatorKey: DaurApp.globalKey,
-      useInheritedMediaQuery: true, //for devices preview
-      locale: DevicePreview.locale(context), //for devices preview
-      builder: DevicePreview.appBuilder, //for devices preview
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       initialBinding: StateHoldersBindings(),
       debugShowCheckedModeBanner: false,
       title: "DaurApp",

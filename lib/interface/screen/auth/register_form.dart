@@ -1,70 +1,97 @@
+import 'package:daur_app/interface/stateholders/reg_and_login_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
 
 class RegisterForm extends StatelessWidget {
-  RegisterForm({
-    Key? key,
-    required this.formKey,
-  }) : super(key: key);
-
-  final GlobalKey formKey;
-
-  late String _userName, _email, _password, _phoneNumber;
+  RegisterForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const TextFieldName(text: "Username"),
-          TextFormField(
-            decoration: const InputDecoration(hintText: "theflutterway"),
-            validator: RequiredValidator(errorText: "Username is required"),
-            onSaved: (username) => _userName = username!,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-          const TextFieldName(text: "Email"),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: "test@email.com"),
-            validator: EmailValidator(errorText: "Use a valid email!"),
-            onSaved: (email) => _email = email!,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-          const TextFieldName(text: "Phone"),
-          // Same for phone number
-          TextFormField(
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(hintText: "+123487697"),
-            validator: RequiredValidator(errorText: "Phone number is required"),
-            onSaved: (phoneNumber) => _phoneNumber = phoneNumber!,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-          const TextFieldName(text: "Password"),
-
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(hintText: "******"),
-            validator: AuthUtils.passwordValidator,
-            onSaved: (password) => _password = password!,
-            onChanged: (pass) => _password = pass,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-          const TextFieldName(text: "Confirm Password"),
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(hintText: "*****"),
-            validator: (pass) =>
-                MatchValidator(errorText: "Password do not  match")
-                    .validateMatch(pass!, _password),
-          ),
-        ],
-      ),
-    );
+    return GetBuilder<AuthController>(builder: (controller) {
+      return Form(
+        key: controller.regKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextFieldName(text: "Nama Lengkap"),
+            TextFormField(
+              decoration: const InputDecoration(hintText: "Nama Lengkap"),
+              validator: AuthUtils.namaValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onSaved: (namaLengkap) =>
+                  controller.namaLengkap.value = namaLengkap!,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+            const TextFieldName(text: "Email"),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(hintText: "test@email.com"),
+              validator: AuthUtils.emailValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onSaved: (email) => controller.email.value = email!,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+            const TextFieldName(text: "No HP"),
+            TextFormField(
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(hintText: "+123487697"),
+              validator: AuthUtils.phoneValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onSaved: (noHP) => controller.noHP.value = noHP!,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+            const TextFieldName(text: "Password"),
+            TextFormField(
+              obscureText: controller.obscure.value,
+              decoration: InputDecoration(
+                hintText: "********",
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    controller.obscure.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    controller.obscure.value = !controller.obscure.value;
+                    controller.update();
+                  },
+                ),
+              ),
+              validator: AuthUtils.passwordValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onSaved: (password) => controller.password.value = password!,
+              onChanged: (pass) => controller.password.value = pass,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+            const TextFieldName(text: "Confirm Password"),
+            TextFormField(
+              obscureText: controller.obscure.value,
+              decoration: InputDecoration(
+                hintText: "********",
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    controller.obscure.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    controller.obscure.value = !controller.obscure.value;
+                    controller.update();
+                  },
+                ),
+              ),
+              validator: (pass) =>
+                  MatchValidator(errorText: "Password do not  match")
+                      .validateMatch(pass!, controller.password.value),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 

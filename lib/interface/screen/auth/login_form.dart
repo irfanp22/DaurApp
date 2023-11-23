@@ -1,45 +1,55 @@
 import 'package:daur_app/interface/screen/auth/register_form.dart';
+import 'package:daur_app/interface/stateholders/reg_and_login_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/auth_utils.dart';
-import 'package:daur_app/interface/widget/input_textfield_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends StatelessWidget {
-  LoginForm({
-    Key? key,
-    required this.formKey,
-  }) : super(key: key);
-
-  final GlobalKey formKey;
-
-  late String _email, _password;
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const TextFieldName(text: "Email"),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: "test@email.com"),
-            validator: EmailValidator(errorText: "Use a valid email!"),
-            onSaved: (email) => _email = email!,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-          const TextFieldName(text: "Password"),
-          InputTextFormField(
-            isSecureField: true,
-            hint: "********",
-            validation: AuthUtils.passwordValidator,
-            onFieldSubmitted: (password) => _password = password!,
-          ),
-          const SizedBox(height: AppStyle.defaultPadding),
-        ],
-      ),
-    );
+    return GetBuilder<AuthController>(builder: (controller) {
+      return Form(
+        key: controller.logKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextFieldName(text: "Email"),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(hintText: "test@email.com"),
+              validator: AuthUtils.emailValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onSaved: (val) => controller.email.value = val!,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+            const TextFieldName(text: "Password"),
+            TextFormField(
+              obscureText: controller.obscure.value,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                hintText: "********",
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    controller.obscure.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    controller.obscure.value = !controller.obscure.value;
+                    controller.update();
+                  },
+                ),
+              ),
+              validator: AuthUtils.passwordValidator,
+              onSaved: (val) => controller.password.value = val!,
+            ),
+            const SizedBox(height: AppStyle.defaultPadding),
+          ],
+        ),
+      );
+    });
   }
 }

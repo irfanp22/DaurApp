@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 class SettingWidget extends StatelessWidget {
   final IconData icon;
   final String text;
-  final double progressValue;
   final VoidCallback onPressed;
 
   const SettingWidget({
     Key? key,
     required this.icon,
     required this.text,
-    required this.progressValue,
     required this.onPressed,
   }) : super(key: key);
 
@@ -25,8 +23,8 @@ class SettingWidget extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(
-            horizontal: AppStyle.defaultPadding,
-            vertical: AppStyle.defaultPadding,
+            horizontal: 8,
+            vertical: 8,
           ),
         ),
         child: Row(
@@ -42,10 +40,6 @@ class SettingWidget extends StatelessWidget {
                 children: [
                   Text(text,
                       style: const TextStyle(color: AppStyle.headTextColor)),
-                  const SizedBox(height: 8),
-                  LinearProgressIndicator(
-                    value: progressValue,
-                  ),
                 ],
               ),
             ),
