@@ -1,6 +1,8 @@
-import 'package:daur_app/data/model/auth_helper.dart';
+import 'package:daur_app/data/datastore/constant_datastore.dart';
+import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
 import 'package:daur_app/interface/screen/main_bot_nav_screen.dart';
+import 'package:daur_app/interface/stateholders/home_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/utils/image_utils.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _goToNextScreen() async {
+    if (auth.currentUser != null) {
+      HomeController().setUserData();
+    }
     Future.delayed(const Duration(seconds: 3)).then(
       (value) => auth.currentUser != null
           ? Get.offAll(() => const BottomNavBarScreen())

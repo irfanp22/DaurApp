@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:daur_app/app/state_holders.dart';
 import 'package:daur_app/interface/screen/splash_screen.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
@@ -17,19 +15,6 @@ class DaurApp extends StatefulWidget {
 }
 
 class _DaurAppState extends State<DaurApp> {
-  late final StreamSubscription _connectivityStream;
-
-  @override
-  void initState() {
-    checkInitialInternetConnection();
-    checkInternetConnectivityStatus();
-    super.initState();
-  }
-
-  void checkInitialInternetConnection() async {}
-
-  void checkInternetConnectivityStatus() {}
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -75,11 +60,5 @@ class _DaurAppState extends State<DaurApp> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _connectivityStream.cancel();
-    super.dispose();
   }
 }

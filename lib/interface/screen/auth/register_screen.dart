@@ -17,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            const WhiteSpaceWidget(),
+            WhiteSpaceWidget(),
             GreenPatternBackground(),
             Align(
               alignment: const Alignment(0.0, 0.0),

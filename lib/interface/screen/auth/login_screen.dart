@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             const SizedBox(height: 20),
-            const WhiteSpaceWidget(),
+            WhiteSpaceWidget(),
             GreenPatternBackground(),
             Align(
               alignment: const Alignment(0.0, 0.0),
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         TextButton(
-                          onPressed: () => Get.to(() => const RegisterScreen()),
+                          onPressed: () => Get.to(() => RegisterScreen()),
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.white,
                           ),

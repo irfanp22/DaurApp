@@ -1,4 +1,10 @@
+import 'package:daur_app/interface/screen/about_screen.dart';
+import 'package:daur_app/interface/screen/change_pass_screen.dart';
+import 'package:daur_app/interface/screen/daur_hero_screen.dart';
+import 'package:daur_app/interface/screen/profile_screnn.dart';
+import 'package:daur_app/interface/screen/tnd_screen.dart';
 import 'package:daur_app/interface/stateholders/account_controller.dart';
+import 'package:daur_app/interface/stateholders/home_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
 import 'package:daur_app/interface/widget/setting_widget.dart';
@@ -8,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -17,6 +24,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final user = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(builder: (controller) {
@@ -25,7 +33,7 @@ class _AccountScreenState extends State<AccountScreen> {
           body: Stack(
             fit: StackFit.expand,
             children: [
-              const WhiteSpaceWidget(),
+              WhiteSpaceWidget(),
               GreenPatternBackground(),
               Align(
                 alignment: const Alignment(0.0, 0.0),
@@ -89,7 +97,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "User",
+                                          user.usr!.namaLengkap!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!
@@ -114,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        // Your button logic here
+                                        Get.to(const DaurHeroScreen());
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.white,
@@ -123,11 +131,11 @@ class _AccountScreenState extends State<AccountScreen> {
                                           vertical: AppStyle.defaultPadding,
                                         ),
                                       ),
-                                      child: const Row(
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             CupertinoIcons.star_circle_fill,
                                             size: 40,
                                             color: AppStyle.primaryColor,
@@ -135,18 +143,19 @@ class _AccountScreenState extends State<AccountScreen> {
                                           Expanded(
                                             child: Column(
                                               children: [
-                                                Text("Green Saver",
+                                                const Text("Green Saver",
                                                     style: TextStyle(
                                                         color: AppStyle
                                                             .headTextColor)),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 8,
                                                 ),
-                                                Text("Member sejak Jan 2023")
+                                                Text(
+                                                    "Member sejak ${DateFormat.yMMM().format(user.usr!.createdAt!.toDate())}")
                                               ],
                                             ),
                                           ),
-                                          Icon(
+                                          const Icon(
                                             CupertinoIcons.chevron_right,
                                             size: 40,
                                             color: AppStyle.primaryColor,
@@ -249,7 +258,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: CupertinoIcons.person_fill,
                         text: "Pengaturan Profil",
                         onPressed: () {
-                          // Your button logic here
+                          Get.to(const ProfileScrenn());
                         },
                       ),
                       const SizedBox(height: 5),
@@ -257,7 +266,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: CupertinoIcons.gear_alt_fill,
                         text: "Pengaturan Keamanan",
                         onPressed: () {
-                          // Your button logic here
+                          Get.to(const ChangePassScreen());
                         },
                       ),
                       const SizedBox(height: 5),
@@ -265,7 +274,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: CupertinoIcons.info_circle_fill,
                         text: "Tentang Kami",
                         onPressed: () {
-                          // Your button logic here
+                          Get.to(const AboutScreen());
                         },
                       ),
                       const SizedBox(height: 5),
@@ -273,41 +282,66 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: CupertinoIcons.doc_fill,
                         text: "Syarat dan Ketentuan",
                         onPressed: () {
-                          // Your button logic here
+                          Get.to(const TndScreen());
                         },
                       ),
                     ],
                   )),
               Positioned(
-                  top: MediaQuery.of(context).size.height * 0.85,
-                  left: AppStyle.defaultPadding,
-                  right: AppStyle.defaultPadding,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      controller.logout();
-                      navIndex.currentSelectedIndex = 0;
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(
-                          color: AppStyle.primaryColor, width: 2),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Logout',
-                          style: TextStyle(
-                              fontSize: 16, color: AppStyle.headTextColor),
-                        ),
-                      ],
-                    ),
-                  ))
+                top: MediaQuery.of(context).size.height * 0.85,
+                left: AppStyle.defaultPadding,
+                right: AppStyle.defaultPadding,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Konfirmasi Logout'),
+                          content:
+                              const Text('Apakah anda yakin ingin keluar?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                controller.logout();
+                                navIndex.currentSelectedIndex = 0;
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Logout'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(
+                        color: AppStyle.primaryColor, width: 2),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Logout',
+                        style: TextStyle(
+                            fontSize: 16, color: AppStyle.headTextColor),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ));
     });

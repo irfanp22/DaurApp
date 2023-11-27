@@ -63,7 +63,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const WhiteSpaceWidget(),
+          WhiteSpaceWidget(),
           GreenPatternBackground(half: true),
           Align(
             alignment: const Alignment(0.0, 0.0),

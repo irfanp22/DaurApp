@@ -1,4 +1,4 @@
-import 'package:daur_app/data/model/auth_helper.dart';
+import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
 import 'package:daur_app/interface/stateholders/main_bot_nav_controller.dart';
 import 'package:get/get.dart';

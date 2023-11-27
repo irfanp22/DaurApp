@@ -1,5 +1,5 @@
 import 'package:daur_app/app/apps.dart';
-import 'package:daur_app/data/model/auth_helper.dart';
+import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

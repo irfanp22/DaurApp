@@ -1,10 +1,13 @@
-import 'package:daur_app/data/model/auth_helper.dart';
+import 'package:daur_app/data/datastore/auth_datastore.dart';
+import 'package:daur_app/data/model/constant.dart';
+import 'package:daur_app/data/model/user_model.dart';
 import 'package:daur_app/interface/screen/main_bot_nav_screen.dart';
 import 'package:daur_app/interface/widget/snackbar_err_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController extends GetxController {
   GlobalKey<FormState> regKey = GlobalKey<FormState>();
@@ -39,17 +42,35 @@ class AuthController extends GetxController {
 
       auth.authStateChanges().listen((user) {
         if (user != null) {
+          if (!login) {
+            final datetime = DateTime.now();
+            Timestamp timestamp = Timestamp.fromDate(datetime);
+            UserModel usr = UserModel(
+                id: user.uid,
+                namaLengkap: namaLengkap.value,
+                email: email.value,
+                noHP: noHP.value,
+                icn: 0,
+                alamat: [],
+                activePoin: 0,
+                xp: 0,
+                createdAt: timestamp);
+            AuthDatastore.initUser(usr);
+          }
           Get.offAll(() => const BottomNavBarScreen());
         }
       });
     } catch (e) {
-      error.value = "AuthError: Invalid Credentials, Malformed, or has Expired";
+      error.value = "AuthError: $e";
     }
   }
 
   Future<void> logInWithGoogle() async {
     try {
       final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return;
+      }
 
       final googleAuth = await googleUser?.authentication;
 
@@ -59,12 +80,29 @@ class AuthController extends GetxController {
           idToken: googleAuth.idToken,
         );
 
-        await auth.signInWithCredential(credential);
-        auth.authStateChanges().listen((user) {
-          if (user != null) {
-            Get.offAll(() => const BottomNavBarScreen());
+        final userCredential = await auth.signInWithCredential(credential);
+        User? user = auth.currentUser;
+        if (user != null) {
+          final isNewUser =
+              userCredential.additionalUserInfo?.isNewUser ?? false;
+
+          if (isNewUser) {
+            final datetime = DateTime.now();
+            Timestamp timestamp = Timestamp.fromDate(datetime);
+            UserModel usr = UserModel(
+                id: user.uid,
+                namaLengkap: namaLengkap.value,
+                email: email.value,
+                noHP: noHP.value,
+                icn: 0,
+                alamat: [],
+                activePoin: 0,
+                xp: 0,
+                createdAt: timestamp);
+            AuthDatastore.initUser(usr);
           }
-        });
+          Get.offAll(() => const BottomNavBarScreen());
+        }
       }
     } catch (e) {
       error.value = 'GoogleError: $e';

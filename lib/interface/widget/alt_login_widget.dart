@@ -13,7 +13,7 @@ class AltLoginWidget extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              controller.logInWithGoogle();
+              controller.logInWithGoogle().then((_) {});
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black,
