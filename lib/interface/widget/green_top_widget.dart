@@ -5,7 +5,9 @@ import 'package:daur_app/interface/utils/app_style.dart';
 class GreenPatternBackground extends StatelessWidget {
   bool half;
   bool cat;
-  GreenPatternBackground({Key? key, this.half = false, this.cat = false})
+  bool oth;
+  GreenPatternBackground(
+      {Key? key, this.half = false, this.cat = false, this.oth = false})
       : super(key: key);
 
   @override
@@ -17,11 +19,13 @@ class GreenPatternBackground extends StatelessWidget {
               ? (MediaQuery.of(context).size.height * 0.25) / 2
               : cat
                   ? MediaQuery.of(context).size.height * 0.25 - 84
-                  : MediaQuery.of(context).size.height * 0.25,
+                  : oth
+                      ? (MediaQuery.of(context).size.height * 0.25 - 84) / 2
+                      : MediaQuery.of(context).size.height * 0.25,
           width: double.infinity,
           color: AppStyle.primaryColor,
         ),
-        if (!half && !cat)
+        if (!half && !cat && !oth)
           Positioned(
             top: 0,
             right: 0,
@@ -36,7 +40,9 @@ class GreenPatternBackground extends StatelessWidget {
               ? (MediaQuery.of(context).size.height * 0.25) / 2
               : cat
                   ? MediaQuery.of(context).size.height * 0.25 - 84
-                  : MediaQuery.of(context).size.height * 0.25,
+                  : oth
+                      ? (MediaQuery.of(context).size.height * 0.25 - 84) / 2
+                      : MediaQuery.of(context).size.height * 0.25,
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(

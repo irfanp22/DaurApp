@@ -1,6 +1,5 @@
 import 'package:daur_app/interface/widget/white_space_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class InputScreen extends StatefulWidget {
   const InputScreen({Key? key}) : super(key: key);
@@ -16,12 +15,6 @@ class _InputScreenState extends State<InputScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Input Poin'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.back();
-            },
-          ),
         ),
         body: Stack(
           fit: StackFit.expand,

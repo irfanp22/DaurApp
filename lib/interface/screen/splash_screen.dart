@@ -1,4 +1,3 @@
-import 'package:daur_app/data/datastore/constant_datastore.dart';
 import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/screen/auth/login_screen.dart';
 import 'package:daur_app/interface/screen/main_bot_nav_screen.dart';

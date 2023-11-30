@@ -10,7 +10,10 @@ class AuthDatastore {
         "namaLengkap": user.namaLengkap,
         "noHP": user.noHP,
         "icn": user.icn,
-        "createdAt": user.createdAt
+        "createdAt": user.createdAt,
+        "activePoin": user.activePoin,
+        "xp": user.xp,
+        "alamat": user.alamat,
       });
       return true;
     } catch (e) {

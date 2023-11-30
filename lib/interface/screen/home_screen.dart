@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final c = Get.put(HomeController());
+  final c = Get.find<HomeController>();
   @override
   void initState() {
     c.setUserData();
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   const Spacer(),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Get.to(() => const ExchangeScreen());
+                                      Get.to(() => ExchangeScreen());
                                     },
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               }),
                               AppStyle.buildMenuItem(
                                   CupertinoIcons.car_fill, "Pick Up", () {
-                                Get.to(() => const PickupStatusScreen());
+                                Get.to(() => PickupStatusScreen());
                               }),
                               AppStyle.buildMenuItem(
                                   CupertinoIcons.qrcode, "Input Poin", () {
@@ -316,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(20.0),
                   child: TextButton(
                     onPressed: () {
-                      Get.to(const DaurHeroScreen());
+                      Get.to(() => DaurHeroScreen());
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.white,

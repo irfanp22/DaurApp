@@ -24,7 +24,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  final user = Get.put(HomeController());
+  final user = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(builder: (controller) {
@@ -122,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        Get.to(const DaurHeroScreen());
+                                        Get.to(() => DaurHeroScreen());
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.white,

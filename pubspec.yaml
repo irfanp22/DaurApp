@@ -28,6 +28,7 @@ dependencies:
   barcode_widget: ^2.0.4
   uuid: ^4.2.1
   collection: ^1.17.2
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

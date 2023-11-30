@@ -16,7 +16,7 @@ class SpacerWidget extends StatelessWidget {
               const SizedBox(height: AppStyle.defaultPadding * 2),
               Container(
                 height: 1,
-                width: 150,
+                width: 120,
                 color: color,
               ),
               const Padding(
@@ -28,7 +28,7 @@ class SpacerWidget extends StatelessWidget {
               ),
               Container(
                 height: 1,
-                width: 150,
+                width: 120,
                 color: color,
               ),
               const SizedBox(height: AppStyle.defaultPadding * 2),

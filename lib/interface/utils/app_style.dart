@@ -54,7 +54,7 @@ class AppStyle {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(7),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -1,6 +1,5 @@
 import 'package:daur_app/interface/widget/white_space_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AlamatScreen extends StatelessWidget {
   const AlamatScreen({Key? key}) : super(key: key);
@@ -11,12 +10,6 @@ class AlamatScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Daftar Alamat'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.back();
-            },
-          ),
         ),
         body: Stack(
           fit: StackFit.expand,

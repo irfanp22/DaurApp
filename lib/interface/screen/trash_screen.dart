@@ -1,7 +1,7 @@
 import 'package:daur_app/interface/stateholders/trash_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
-import 'package:daur_app/interface/widget/setor_widget.dart';
+import 'package:daur_app/interface/widget/trash_widget.dart';
 import 'package:daur_app/interface/widget/white_space_widget.dart';
 
 import 'package:flutter/material.dart';
@@ -97,16 +97,17 @@ class _TrashScreenState extends State<TrashScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              controller.isChecked = !controller.isChecked;
+                              controller.isChecked.value =
+                                  !controller.isChecked.value;
                             });
                           },
                           child: Row(
                             children: [
                               Checkbox(
-                                value: controller.isChecked,
+                                value: controller.isChecked.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    controller.isChecked = value!;
+                                    controller.isChecked.value = value!;
                                   });
                                 },
                               ),
@@ -117,10 +118,10 @@ class _TrashScreenState extends State<TrashScreen> {
                       ],
                     ),
                     TextButton(
-                      onPressed: controller.isChecked
+                      onPressed: controller.isChecked.value
                           ? () {
                               setState(() {
-                                controller.isChecked = false;
+                                controller.isChecked.value = false;
                               });
                             }
                           : null,
@@ -162,7 +163,7 @@ class _TrashScreenState extends State<TrashScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Title: ${items[index].title}'),
-                              Text('Category: ${items[index].category}'),
+                              Text('cat: ${items[index].category}'),
                               Text(
                                   'Price: \$${items[index].price.toStringAsFixed(2)}'),
                             ],
