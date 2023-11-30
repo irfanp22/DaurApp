@@ -1,19 +1,20 @@
-import 'package:daur_app/interface/screen/alamat_screen.dart';
-import 'package:daur_app/interface/screen/trash_screen.dart';
+import 'package:daur_app/interface/stateholders/trash_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/setor_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SetorScreen extends StatefulWidget {
-  List<TrashItem> items;
-  SetorScreen({Key? key, required this.items}) : super(key: key);
+  SetorScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SetorScreen> createState() => _SetorScreenState();
 }
 
 class _SetorScreenState extends State<SetorScreen> {
+  final _trash = Get.find<TrashController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,6 @@ class _SetorScreenState extends State<SetorScreen> {
         title: const Text('Setor Sampah'),
       ),
       body: SingleChildScrollView(
-        // Wrap with SingleChildScrollView
         child: Padding(
           padding: const EdgeInsets.fromLTRB(
               0, AppStyle.defaultPadding, 0, AppStyle.defaultPadding),
@@ -55,39 +55,53 @@ class _SetorScreenState extends State<SetorScreen> {
                 title: 'Barang',
                 content: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: widget.items.length,
+                  itemCount: _trash.trashList.length,
                   itemBuilder: (context, index) {
+                    final items = _trash.trashList[index];
                     return ListTile(
-                      leading: Checkbox(
-                        value: widget.items[index].isSelected,
-                        onChanged: (value) {
-                          setState(() {
-                            widget.items[index].isSelected = value!;
-                          });
-                        },
-                      ),
                       title: Row(
                         children: [
-                          Container(
-                            width: 80.0,
-                            height: 80.0,
-                            color: Colors.grey,
+                          Image.network(
+                            items['pic'],
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
                           ),
                           const SizedBox(width: 10.0),
-                          Container(
-                            width: MediaQuery.of(context).size.width -
-                                120, // Adjust the width as needed
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Title: ${widget.items[index].title}'),
-                                Text(
-                                    'Category: ${widget.items[index].category}'),
-                                Text(
-                                  'Price: \$${widget.items[index].price.toStringAsFixed(2)}',
-                                ),
-                              ],
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                items['name'],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppStyle.headTextColor,
+                                    ),
+                              ),
+                              Text(
+                                items['category'],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black38,
+                                    ),
+                              ),
+                              Text(
+                                '${items['price'].toString()} Poin /Kg',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppStyle.primaryColor,
+                                    ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -95,7 +109,7 @@ class _SetorScreenState extends State<SetorScreen> {
                         icon: const Icon(Icons.delete),
                         onPressed: () {
                           setState(() {
-                            widget.items.removeAt(index);
+                            // items.removeAt(index);
                           });
                         },
                       ),

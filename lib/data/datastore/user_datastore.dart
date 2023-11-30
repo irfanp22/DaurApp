@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/data/model/user_model.dart';
+import 'package:daur_app/interface/stateholders/history_controller.dart';
+import 'package:daur_app/interface/stateholders/trash_controller.dart';
+import 'package:get/get.dart';
 
 class UserDatastore {
+  final _trash = Get.find<TrashController>();
+  final _hist = Get.find<HistoryController>();
   Future<UserModel> getUserData() async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> userData =
@@ -33,7 +38,7 @@ class UserDatastore {
     }
   }
 
-  Future<bool> findTong(dynamic item) async {
+  Future<String> findTong(dynamic item) async {
     try {
       final querySnapshot = await firestore
           .collection('users')
@@ -42,12 +47,12 @@ class UserDatastore {
           .get();
       for (final doc in querySnapshot.docs) {
         Map<String, dynamic>? tongData = doc.data();
-        if (tongData['name'] == item['name']) return true;
+        if (tongData['name'] == item['name']) return tongData['uuid'];
       }
-      return false;
+      return '';
     } catch (e) {
       print('Error: $e');
-      return false;
+      return '';
     }
   }
 
@@ -59,19 +64,60 @@ class UserDatastore {
         .snapshots();
   }
 
-  Future<void> removeTong(item) async {
+  Future<void> removeTong(Map<String, dynamic> item) async {
     try {
-      print(item['uuid']);
       await firestore
           .collection('users')
           .doc(auth.currentUser!.uid)
           .collection('tong')
           .doc(item['uuid'])
           .delete();
-      return;
+
+      _trash.trashList.remove(item);
     } catch (e) {
       print(e);
-      return;
+      rethrow;
+    }
+  }
+
+  Future<void> getTong() async {
+    try {
+      final querySnapshot = await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('tong')
+          .get();
+
+      _trash.trashList.clear();
+
+      for (final doc in querySnapshot.docs) {
+        final data = doc.data();
+        _trash.trashList.add(data);
+      }
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> getHistory(DateTime startDate, DateTime endDate) async {
+    try {
+      final querySnapshot = await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('transaksi')
+          .where('date', isGreaterThanOrEqualTo: startDate)
+          .where('date', isLessThanOrEqualTo: endDate)
+          .orderBy('date', descending: true)
+          .get();
+
+      _hist.history.assignAll(querySnapshot.docs.map((doc) {
+        final data = doc.data();
+        return data;
+      }));
+      _hist.update();
+    } catch (e) {
+      print(e);
     }
   }
 }

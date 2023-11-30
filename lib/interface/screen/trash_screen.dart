@@ -1,3 +1,4 @@
+import 'package:daur_app/data/datastore/user_datastore.dart';
 import 'package:daur_app/interface/stateholders/trash_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
@@ -7,19 +8,7 @@ import 'package:daur_app/interface/widget/white_space_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TrashItem {
-  final String title;
-  final String category;
-  final double price;
-  bool isSelected;
-
-  TrashItem({
-    required this.title,
-    required this.category,
-    required this.price,
-    this.isSelected = false,
-  });
-}
+final _data = UserDatastore();
 
 class TrashScreen extends StatefulWidget {
   const TrashScreen({Key? key}) : super(key: key);
@@ -29,23 +18,11 @@ class TrashScreen extends StatefulWidget {
 }
 
 class _TrashScreenState extends State<TrashScreen> {
-  List<TrashItem> items = [
-    TrashItem(
-        title: 'Item 1',
-        category: 'Category A',
-        price: 19.99,
-        isSelected: false),
-    TrashItem(
-        title: 'Item 2',
-        category: 'Category B',
-        price: 29.99,
-        isSelected: false),
-    TrashItem(
-        title: 'Item 3',
-        category: 'Category A',
-        price: 39.99,
-        isSelected: false),
-  ];
+  @override
+  void initState() {
+    _data.getTong();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,110 +63,83 @@ class _TrashScreenState extends State<TrashScreen> {
               top: (MediaQuery.of(context).size.height * 0.25) / 2,
               right: 0,
               left: 0,
-              child: Container(
-                height: 50.0,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              controller.isChecked.value =
-                                  !controller.isChecked.value;
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                value: controller.isChecked.value,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller.isChecked.value = value!;
-                                  });
-                                },
-                              ),
-                              const Text('Pilih Semua'),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    TextButton(
-                      onPressed: controller.isChecked.value
-                          ? () {
-                              setState(() {
-                                controller.isChecked.value = false;
-                              });
-                            }
-                          : null,
-                      child: const Text('Hapus'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: (MediaQuery.of(context).size.height * 0.25) / 2 + 50,
-              right: 0,
-              left: 0,
               bottom: 0,
               child: Container(
-                color: Colors.transparent,
-                child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Checkbox(
-                        value: items[index].isSelected,
-                        onChanged: (value) {
-                          setState(() {
-                            items[index].isSelected = value!;
-                          });
-                        },
-                      ),
-                      title: Row(
-                        children: [
-                          Container(
-                            width: 80.0,
-                            height: 80.0,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 10.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  color: Colors.transparent,
+                  child: Obx(
+                    () => ListView.builder(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      itemCount: controller.trashList.length,
+                      itemBuilder: (context, index) {
+                        final items = controller.trashList[index];
+                        return ListTile(
+                          title: Row(
                             children: [
-                              Text('Title: ${items[index].title}'),
-                              Text('cat: ${items[index].category}'),
-                              Text(
-                                  'Price: \$${items[index].price.toStringAsFixed(2)}'),
+                              Image.network(
+                                items['pic'],
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    items['name'],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppStyle.headTextColor,
+                                        ),
+                                  ),
+                                  Text(
+                                    items['category'],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black38,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${items['price'].toString()} Poin /Kg',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppStyle.primaryColor,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            items.removeAt(index);
-                          });
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              _data.removeTong(items);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  )),
             ),
-            if (items.isNotEmpty)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: SummaryWidget(items: items),
-              ),
+            Obx(() => (controller.trashList.isNotEmpty)
+                ? Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: SummaryWidget(
+                      items: controller.trashList,
+                    ),
+                  )
+                : const SizedBox())
           ],
         ),
       );

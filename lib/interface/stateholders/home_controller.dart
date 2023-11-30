@@ -3,8 +3,11 @@ import 'package:daur_app/data/model/user_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  RxNum expenses = RxNum(0);
+  RxNum incomes = RxNum(0);
   UserModel? usr;
   RxBool isLoading = false.obs;
+  RxMap hero = {}.obs;
   Future<void> setUserData() async {
     try {
       isLoading.value = true;

@@ -1,11 +1,10 @@
 import 'package:daur_app/interface/screen/setor_screen.dart';
-import 'package:daur_app/interface/screen/trash_screen.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SummaryWidget extends StatelessWidget {
-  final List<TrashItem> items;
+  final List items;
 
   SummaryWidget({required this.items});
 
@@ -46,9 +45,7 @@ class SummaryWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.to(() => SetorScreen(
-                    items: items,
-                  ));
+              Get.to(() => SetorScreen());
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/stateholders/catalog_controller.dart';
 import 'package:daur_app/interface/stateholders/daur_hero_controller.dart';
@@ -35,7 +34,7 @@ class ConstantDatastore {
     }
   }
 
-  Future<void> getData() async {
+  Future<void> getCatalog() async {
     final querySnapshot = await firestore.collection('catalog').get();
 
     final allData = querySnapshot.docs.map((doc) => doc.data());

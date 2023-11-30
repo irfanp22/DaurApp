@@ -1,9 +1,13 @@
+import 'package:daur_app/data/datastore/user_datastore.dart';
+import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/screen/catalog_screen.dart';
 import 'package:daur_app/interface/screen/daur_hero_screen.dart';
 import 'package:daur_app/interface/screen/drop_point_screen.dart';
 import 'package:daur_app/interface/screen/exchange_screen.dart';
 import 'package:daur_app/interface/screen/input_screen.dart';
 import 'package:daur_app/interface/screen/pickup_status_screen.dart';
+import 'package:daur_app/interface/stateholders/daur_hero_controller.dart';
+import 'package:daur_app/interface/stateholders/history_controller.dart';
 import 'package:daur_app/interface/stateholders/home_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
@@ -23,10 +27,41 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final c = Get.find<HomeController>();
+  final h = Get.find<HistoryController>();
+  final l = Get.find<DaurHeroController>();
+  final data = UserDatastore();
   @override
   void initState() {
-    c.setUserData();
     super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    try {
+      await c.setUserData();
+      await l.setDaurHeroStream(firestore.collection('daurHero').snapshots());
+      l.choose(c.usr!.xp);
+      await data.getHistory(
+        DateTime.now().subtract(const Duration(days: 89)),
+        DateTime.now(),
+      );
+
+      if (h.history.isNotEmpty) {
+        c.expenses.value = 0;
+        c.incomes.value = 0;
+        for (final hist in h.history) {
+          (hist['type'] == 'Masuk')
+              ? c.incomes.value += hist['poin']
+              : c.expenses.value += hist['poin'];
+        }
+      }
+    } catch (e) {
+      print("Error loading data: $e");
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -212,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     color: AppStyle.textColor),
                                               ),
                                               Text(
-                                                "6500",
+                                                c.incomes.value.toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge!
@@ -244,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     color: AppStyle.textColor),
                                               ),
                                               Text(
-                                                "4500",
+                                                c.expenses.value.toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge!
@@ -325,10 +360,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: AppStyle.defaultPadding,
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(
+                        const Icon(
                           CupertinoIcons.star_circle_fill,
                           size: 40,
                           color: AppStyle.primaryColor,
@@ -336,19 +371,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Column(
                             children: [
-                              Text("450 xp lagi menuju Recycling Pro",
-                                  style:
-                                      TextStyle(color: AppStyle.headTextColor)),
-                              SizedBox(
+                              Text(
+                                "${(l.nextHero?['xp'] ?? 0) - (controller.usr?.xp ?? 0)} xp lagi menuju ${l.nextHero?['name'] ?? ''}",
+                                style: const TextStyle(
+                                  color: AppStyle.headTextColor,
+                                ),
+                              ),
+                              const SizedBox(
                                 height: 8,
                               ),
-                              LinearProgressIndicator(
-                                value: 1050 / 1500,
-                              ),
+                              if (controller.usr != null && l.nextHero != null)
+                                LinearProgressIndicator(
+                                  value: (controller.usr!.xp ?? 0) /
+                                      (l.nextHero!['xp'] ?? 1),
+                                ),
                             ],
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           CupertinoIcons.chevron_right,
                           size: 40,
                           color: AppStyle.primaryColor,

@@ -1,9 +1,11 @@
+import 'package:daur_app/data/model/constant.dart';
 import 'package:daur_app/interface/screen/about_screen.dart';
 import 'package:daur_app/interface/screen/change_pass_screen.dart';
 import 'package:daur_app/interface/screen/daur_hero_screen.dart';
 import 'package:daur_app/interface/screen/profile_screnn.dart';
 import 'package:daur_app/interface/screen/tnd_screen.dart';
 import 'package:daur_app/interface/stateholders/account_controller.dart';
+import 'package:daur_app/interface/stateholders/daur_hero_controller.dart';
 import 'package:daur_app/interface/stateholders/home_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
@@ -24,7 +26,15 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final c = Get.find<HomeController>();
+  final l = Get.find<DaurHeroController>();
   final user = Get.find<HomeController>();
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(builder: (controller) {
@@ -143,8 +153,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                           Expanded(
                                             child: Column(
                                               children: [
-                                                const Text("Green Saver",
-                                                    style: TextStyle(
+                                                Text(
+                                                    l.currentHero['name'] ?? '',
+                                                    style: const TextStyle(
                                                         color: AppStyle
                                                             .headTextColor)),
                                                 const SizedBox(
@@ -195,7 +206,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                               .headTextColor),
                                                     ),
                                                     Text(
-                                                      "3%",
+                                                      "${l.currentHero['bonusPoin']}%",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleLarge!
@@ -221,7 +232,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                               .headTextColor),
                                                     ),
                                                     Text(
-                                                      "3%",
+                                                      "${l.currentHero['bonusDiskon']}%",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleLarge!
@@ -345,5 +356,11 @@ class _AccountScreenState extends State<AccountScreen> {
             ],
           ));
     });
+  }
+
+  void load() async {
+    await c.setUserData();
+    await l.setDaurHeroStream(firestore.collection('daurHero').snapshots());
+    l.choose(c.usr!.xp);
   }
 }

@@ -1,4 +1,3 @@
-import 'package:daur_app/interface/screen/history_screen.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:intl/intl.dart';
 class TransaksiWidget extends StatelessWidget {
   BuildContext context;
   int index;
-  List<Transaksi> items;
+  final items;
 
   TransaksiWidget(
       {Key? key,
@@ -24,9 +23,12 @@ class TransaksiWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                DateFormat('dd MMM y HH:mm:ss').format(items[index].date),
+                DateFormat('dd MMM y HH:mm:ss')
+                    .format(items[index]['date'].toDate()),
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.bold, color: AppStyle.headTextColor),
+                      fontWeight: FontWeight.bold,
+                      color: AppStyle.headTextColor,
+                    ),
               ),
             ],
           ),
@@ -58,9 +60,9 @@ class TransaksiWidget extends StatelessWidget {
                       blendMode: BlendMode.srcATop,
                       child: Center(
                           child: Icon(
-                              items[index].category == "Pick Up"
+                              items[index]['category'] == "Pick Up"
                                   ? CupertinoIcons.car_fill
-                                  : items[index].category == "Drop Point"
+                                  : items[index]['category'] == "Drop Point"
                                       ? Icons.location_pin
                                       : CupertinoIcons
                                           .arrow_2_circlepath_circle_fill,
@@ -80,7 +82,7 @@ class TransaksiWidget extends StatelessWidget {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  if (items[index].type == "Masuk") ...[
+                                  if (items[index]['type'] == "Masuk") ...[
                                     AppStyle.primaryGradient,
                                     AppStyle.secondaryGradient,
                                   ] else ...[
@@ -92,12 +94,12 @@ class TransaksiWidget extends StatelessWidget {
                                 end: Alignment.bottomRight,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
+                                  const BorderRadius.all(Radius.circular(8)),
                             ),
                             child: Row(
                               children: [
                                 Icon(
-                                  items[index].type == "Masuk"
+                                  items[index]['type'] == "Masuk"
                                       ? CupertinoIcons.arrow_down
                                       : CupertinoIcons.arrow_up,
                                   size: 20,
@@ -108,9 +110,9 @@ class TransaksiWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            items[index].type,
+                            items[index]['type'],
                             style: TextStyle(
-                              color: items[index].type == "Masuk"
+                              color: items[index]['type'] == "Masuk"
                                   ? AppStyle.primaryColor
                                   : AppStyle.redColor,
                               fontSize: 15,
@@ -120,7 +122,7 @@ class TransaksiWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        items[index].category,
+                        items[index]['category'],
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppStyle.headTextColor),
@@ -132,9 +134,9 @@ class TransaksiWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '${items[index].type == "Masuk" ? "+" : "-"}${items[index].poin} DaurPoin',
+                    '${items[index]['type'] == "Masuk" ? "+" : "-"}${items[index]['poin']} DaurPoin',
                     style: TextStyle(
-                      color: items[index].type == "Masuk"
+                      color: items[index]['type'] == "Masuk"
                           ? AppStyle.primaryColor
                           : AppStyle.redColor,
                     ),

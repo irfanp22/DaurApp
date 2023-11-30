@@ -1,6 +1,7 @@
 import 'package:daur_app/data/datastore/constant_datastore.dart';
 import 'package:daur_app/data/datastore/user_datastore.dart';
 import 'package:daur_app/interface/stateholders/catalog_controller.dart';
+import 'package:daur_app/interface/stateholders/trash_controller.dart';
 import 'package:daur_app/interface/utils/app_style.dart';
 import 'package:daur_app/interface/widget/green_top_widget.dart';
 import 'package:daur_app/interface/widget/stream_catalog_widget.dart';
@@ -20,12 +21,14 @@ class _CatalogScreenState extends State<CatalogScreen> {
   final _data = ConstantDatastore();
   final _usr = UserDatastore();
   final _cat = Get.find<CatalogController>();
+  final _trash = Get.find<TrashController>();
 
   @override
   void initState() {
     super.initState();
     _data.getCategory();
-    _data.getData();
+    _data.getCatalog();
+    _usr.getTong();
   }
 
   @override
@@ -142,10 +145,15 @@ class _CatalogScreenState extends State<CatalogScreen> {
                         child: InkWell(
                           onDoubleTap: () async {
                             final data = item;
+                            final list = _trash.trashList;
 
                             final cek = await _usr.findTong(item);
-                            if (!cek) data['uuid'] = const Uuid().v4();
-                            cek ? _usr.removeTong(data) : _usr.setTong(data);
+                            (cek.isEmpty)
+                                ? data['uuid'] = const Uuid().v4()
+                                : data['uuid'] = cek;
+                            cek.isEmpty
+                                ? _usr.setTong(data)
+                                : _usr.removeTong(data);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),

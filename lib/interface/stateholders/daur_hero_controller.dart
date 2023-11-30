@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DaurHeroController extends GetxController {
-  late RxList<Map<String, dynamic>> daurHero = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> daurHero = <Map<String, dynamic>>[].obs;
+  RxMap<String, dynamic> currentHero = <String, dynamic>{}.obs;
+  RxMap<String, dynamic>? nextHero = <String, dynamic>{}.obs;
 
-  Future<void> setDaurHeroStream(
-      Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
+  setDaurHeroStream(Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
+    daurHero
+        .sort((a, b) => (a['bonusPoin'] ?? 0).compareTo(b['bonusPoin'] ?? 3));
     daurHero.bindStream(stream.map(
       (snapshot) => snapshot.docs
           .map(
@@ -13,7 +16,20 @@ class DaurHeroController extends GetxController {
           )
           .toList(),
     ));
+  }
 
-    return Future.value(null);
+  void choose(currentXp) {
+    for (int i = 0; i < daurHero.length; i++) {
+      if (daurHero[i]['xp'] <= currentXp) {
+        currentHero = (daurHero[i]).obs;
+
+        if (i < daurHero.length - 1) {
+          nextHero = (daurHero[i + 1]).obs;
+        } else {
+          nextHero = null;
+        }
+      }
+    }
+    update();
   }
 }
